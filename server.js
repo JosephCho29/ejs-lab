@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-
+// const menu//FIGURE THIS OUT
 const RESTAURANT = {
   name: 'The Green Byte Bistro',
   isOpen: true,
@@ -56,8 +56,20 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/menu.ejs')
+app.get('/menu', (req, res) => {
+  res.render('menu.ejs', { menu: RESTAURANT.menu });
+});
 
-//STEP 1 OF CREATE A NEW ROUTE FOR "MENU"//
+app.get('/menu/:category', (req, res) => {
+  res.render('category.ejs');
+})
+
+// app.get('/', (req, res) => {
+//   res.render('menu.ejs', {
+//       menu: RESTAURANT
+//   });
+// });
+
+
 
 app.listen(3000);
