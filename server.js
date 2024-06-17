@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-// const menu//FIGURE THIS OUT
 const RESTAURANT = {
   name: 'The Green Byte Bistro',
   isOpen: true,
@@ -61,15 +60,14 @@ app.get('/menu', (req, res) => {
 });
 
 app.get('/menu/:category', (req, res) => {
-  res.render('category.ejs');
-})
+  const category = req.params.category;
+  const capitalizedCategory = category.charAt(0).toUpperCase() + category.slice(1);
+  const filteredMenuItems = RESTAURANT.menu.filter(item => item.category === category);
 
-// app.get('/', (req, res) => {
-//   res.render('menu.ejs', {
-//       menu: RESTAURANT
-//   });
-// });
-
-
+  res.render('category.ejs', {
+    category: capitalizedCategory,
+    menuItems: filteredMenuItems
+  });
+});
 
 app.listen(3000);
